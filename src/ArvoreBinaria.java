@@ -6,36 +6,6 @@ public class ArvoreBinaria {
         System.out.println("Árvore Binária criada com sucesso!");
     }
 
-//    public void inserir(Integer conteudo) {
-//        No novoNo = new No(conteudo);
-//
-//        if(estaVazia()) {
-//            this.raiz = novoNo;
-//        } else {
-//            No aux = this.raiz;
-//            while(true) {
-//                if (aux.getConteudo() > novoNo.getConteudo()) {
-//                    if (aux.getEsquerda() == null) {
-//                        aux.setEsquerda(novoNo);
-//                        return;
-//                    } else {
-//                        aux = aux.getEsquerda();
-//                    }
-//                } else if (aux.getConteudo() == novoNo.getConteudo()) {
-//                    System.out.println("Não é possível informar nós repetidos.");
-//                    return;
-//                } else {
-//                    if (aux.getDireita() == null) {
-//                        aux.setDireita(novoNo);
-//                        return;
-//                    } else {
-//                        aux = aux.getDireita();
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     public void inserir(Integer conteudo) {
         No novoNo = new No(conteudo);
 
@@ -66,6 +36,33 @@ public class ArvoreBinaria {
             } else {
                 inserirRecursivo(novoNo, atual.getDireita());
             }
+        }
+    }
+
+    public No buscar(Integer busca){
+        if (estaVazia()){
+            System.out.println("A árvore está vazia!");
+            return null;
+        }
+        return buscarRecursivo(this.raiz, busca);
+    }
+
+    public No buscarRecursivo(No atual, Integer busca){
+        if (atual == null){
+            return null;
+        }
+        if (busca.equals(atual.getConteudo())){
+            System.out.println("O número " + atual.getConteudo() + " foi encontrado!");
+
+            return atual;
+        }
+        if (busca < atual.getConteudo()){
+            System.out.println("Esquerda");
+            return buscarRecursivo(atual.getEsquerda(), busca);
+        }
+        else {
+            System.out.println("Direita");
+            return buscarRecursivo(atual.getDireita(), busca);
         }
     }
 
