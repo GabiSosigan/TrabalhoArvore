@@ -12,7 +12,7 @@ public class Main {
         arvoreBinaria.inserir(7);
         arvoreBinaria.inserir(9);
         arvoreBinaria.exibir("Pre");
-        arvoreBinaria.buscar(7);
+        arvoreBinaria.buscar(5);
 
     }
 }

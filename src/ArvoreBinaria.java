@@ -49,11 +49,12 @@ public class ArvoreBinaria {
 
     public No buscarRecursivo(No atual, Integer busca){
         if (atual == null){
+            System.out.println("O nó buscado não existe!");
             return null;
         }
         if (busca.equals(atual.getConteudo())){
             System.out.println("O número " + atual.getConteudo() + " foi encontrado!");
-
+            System.out.println(buscarTipo(atual));
             return atual;
         }
         if (busca < atual.getConteudo()){
@@ -64,6 +65,22 @@ public class ArvoreBinaria {
             System.out.println("Direita");
             return buscarRecursivo(atual.getDireita(), busca);
         }
+    }
+
+    public String buscarTipo(No busca){
+        if (busca == null){
+            return "O nó buscado não existe.";
+        }
+        if (busca == this.raiz){
+            return "Nó raíz.";
+        }
+        if (busca.getEsquerda() == null && busca.getDireita() == null){
+            return "Nó folha.";
+        }
+        if (busca.getEsquerda() != null && busca.getDireita() != null){
+            return "Nó com dois filhos.";
+        }
+        return "Nó com um filho.";
     }
 
     public boolean estaVazia() {
