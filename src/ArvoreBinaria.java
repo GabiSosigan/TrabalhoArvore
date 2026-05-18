@@ -74,6 +74,9 @@ public class ArvoreBinaria {
         if (busca == this.raiz){
             return "Nó raíz.";
         }
+        if (busca.getEsquerda() == null && busca.getDireita() == null && busca == this.raiz){
+            return "Nó raíz folha";
+        }
         if (busca.getEsquerda() == null && busca.getDireita() == null){
             return "Nó folha.";
         }
@@ -82,6 +85,39 @@ public class ArvoreBinaria {
         }
         return "Nó com um filho.";
     }
+
+    public No buscarPai(No atual, Integer conteudo){
+        if (atual == null || atual.getConteudo().equals(conteudo)){
+            return null;
+        }
+        if (atual.getDireita() != null && atual.getDireita().getConteudo().equals(conteudo)){
+            return atual;
+        }
+        if (conteudo < atual.getConteudo()) {
+            return buscarPai(atual.getEsquerda(), conteudo);
+        } else {
+            return buscarPai(atual.getDireita(), conteudo);
+        }
+    }
+
+    public void remover(Integer valor){
+        No alvo = buscar(valor);
+        No pai = buscarPai(this.raiz, valor);
+
+        if (alvo == null) {
+            System.out.println("O valor inserido não existe!");
+            return;
+        }
+
+        String tipo = buscarTipo(alvo);
+
+        switch (tipo) {
+            case "Nó folha":
+
+        }
+    }
+
+
 
     public boolean estaVazia() {
         if(this.raiz.getConteudo() == null) {
