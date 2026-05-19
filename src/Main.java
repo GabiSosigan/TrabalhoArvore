@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         ArvoreBinaria arvoreBinaria = new ArvoreBinaria();
+
         arvoreBinaria.inserir(0);
         arvoreBinaria.inserir(-3);
         arvoreBinaria.inserir(-5);
@@ -12,7 +13,11 @@ public class Main {
         arvoreBinaria.inserir(7);
         arvoreBinaria.inserir(9);
         arvoreBinaria.exibir("Pre");
-        arvoreBinaria.buscar(5);
 
+        arvoreBinaria.remover(5);
+        arvoreBinaria.remover(0);
+        arvoreBinaria.remover(10);
+        arvoreBinaria.remover(-4);
+        arvoreBinaria.exibir("Pre");
     }
 }

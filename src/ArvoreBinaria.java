@@ -53,7 +53,7 @@ public class ArvoreBinaria {
             return null;
         }
         if (busca.equals(atual.getConteudo())){
-            System.out.println("O número " + atual.getConteudo() + " foi encontrado!");
+            System.out.println("O nó " + atual.getConteudo() + " foi encontrado!");
             System.out.println(buscarTipo(atual));
             return atual;
         }
@@ -71,24 +71,21 @@ public class ArvoreBinaria {
         if (busca == null){
             return "O nó buscado não existe.";
         }
-        if (busca == this.raiz){
-            return "Nó raíz.";
-        }
-        if (busca.getEsquerda() == null && busca.getDireita() == null && busca == this.raiz){
-            return "Nó raíz folha";
-        }
         if (busca.getEsquerda() == null && busca.getDireita() == null){
-            return "Nó folha.";
+            return "Nó folha";
         }
         if (busca.getEsquerda() != null && busca.getDireita() != null){
-            return "Nó com dois filhos.";
+            return "Nó com dois filhos";
         }
-        return "Nó com um filho.";
+        return "Nó com um filho";
     }
 
     public No buscarPai(No atual, Integer conteudo){
         if (atual == null || atual.getConteudo().equals(conteudo)){
             return null;
+        }
+        if (atual.getEsquerda() != null && atual.getEsquerda().getConteudo().equals(conteudo)){
+            return atual;
         }
         if (atual.getDireita() != null && atual.getDireita().getConteudo().equals(conteudo)){
             return atual;
@@ -113,11 +110,69 @@ public class ArvoreBinaria {
 
         switch (tipo) {
             case "Nó folha":
-
+                removerFolha(pai, alvo);
+                break;
+            case "Nó com um filho":
+                removerUmFilho(pai, alvo);
+                break;
+            case "Nó com dois filhos":
+                removerDoisFilhos(alvo);
+                break;
         }
     }
 
+    public void removerFolha(No pai, No alvo){
+        if (pai == null){
+            this.raiz = new No(null);
+            System.out.println("A raiz folha foi removida");
+            return;
+        }
+        if (pai.getEsquerda() == alvo){
+            pai.setEsquerda(null);
+        }
+        else{
+            pai.setDireita(null);
+        }
+        System.out.println("Nó folha removido: " + alvo.getConteudo());
+    }
 
+    public void removerUmFilho(No pai, No alvo){
+        No neto;
+        if (alvo.getEsquerda() != null){
+            neto = alvo.getEsquerda();
+        } else {
+            neto = alvo.getDireita();
+        }
+        if (pai == null){
+            this.raiz = neto;
+            System.out.println("A raíz foi removida e o nó " + neto.getConteudo() + " é a nova raíz.");
+            return;
+        }
+        if (pai.getEsquerda() == alvo){
+            pai.setEsquerda(neto);
+        } else {
+            pai.setDireita(neto);
+        }
+        System.out.println("Nó com um filho removido: " + alvo.getConteudo());
+    }
+
+    public No obterSucessor (No suc){
+        No atual = suc.getDireita();
+
+        while(atual.getEsquerda() != null){
+            atual = atual.getEsquerda();
+        }
+        System.out.println("O sucessor é " + atual.getConteudo());
+        return atual;
+    }
+
+    public void removerDoisFilhos(No alvo){
+        No sucessor = obterSucessor(alvo);
+        Integer valorSuc = sucessor.getConteudo();
+        remover(valorSuc);
+        alvo.setConteudo(valorSuc);
+        System.out.println("Nó com dois filhos removido: " + alvo.getConteudo());
+    }
 
     public boolean estaVazia() {
         if(this.raiz.getConteudo() == null) {
